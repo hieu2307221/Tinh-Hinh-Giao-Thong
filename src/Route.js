@@ -12,6 +12,7 @@ import CanhBao from './Components/CanhBao/CanhBao';
 import ChitTietCanhBao from './Components/CanhBao/ChiTietCanhBao';
 import PhanAnh from './Components/PhanAnh/PhanAnh';
 import ThanhCong from './Components/PhanAnh/ThanhCong';
+import DuongDi from './Components/Duongdi/DuongDi';
 export const HomeMain = StackNavigator({
     ManHinh_Chinh:{
         screen: Intro,
@@ -78,6 +79,13 @@ export const HomeMain = StackNavigator({
     },
     ThanhCong:{
         screen: ThanhCong,
+        navigationOptions:{
+            header: null
+        }
+
+    },
+    DuongDi:{
+        screen: DuongDi,
         navigationOptions:{
             header: null
         }

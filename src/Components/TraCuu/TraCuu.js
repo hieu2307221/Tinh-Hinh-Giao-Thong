@@ -24,7 +24,7 @@ export default class TraCuu extends Component {
   }
 
   makeRemoteRequest = () => {
-    const url = `http://125.212.241.80/api/`;
+    const url = `http://125.212.241.28/giaothongmap/api`;
     this.setState({ loading: true });
 
     fetch(url)

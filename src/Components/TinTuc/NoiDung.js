@@ -20,7 +20,7 @@ export default class NoiDung extends Component{
 	};
 	fetchData = async() =>{
 		const { params } = this.props.navigation.state;
-    const response =  await fetch('http://125.212.241.80/api/tintuc_detail.php?id='+params.id);
+    const response =  await fetch('http://125.212.241.28/giaothongmap/api/tintuc_detail.php?id='+params.id);
 		const products = await response.json(); // products have array data
 		this.setState({data: products}); // filled data with dynamic array
 	};
@@ -40,7 +40,7 @@ const {navigate} = this.props.navigation;
       <View style={{flex:1}}>
     <ScrollView style={styles.root}>
       <RkCard>
-        <Image rkCardImg source={{uri: 'http://125.212.241.80/api/HinhAnh/'+item.HinhAnh}}/>
+        <Image rkCardImg source={{uri: 'http://125.212.241.28/giaothongmap/HinhAnh/TinTuc/'+item.HinhAnh}}/>
         <View rkCardHeader>
           <View>
             <Text style={styles.title}>{item.TenTinTuc}</Text>

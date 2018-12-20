@@ -5,13 +5,15 @@ import {
   View,
   TouchableOpacity,
   Text,
-  FlatList
+  FlatList,
+  Dimensions,
 } from 'react-native';
 import {
   RkCard,
   RkText,
   RkStyleSheet,
 } from 'react-native-ui-kitten';;
+import HTML from 'react-native-render-html';
 
 export default class ChiTietLuat extends Component{
 	 
@@ -20,7 +22,7 @@ export default class ChiTietLuat extends Component{
 	};
 	fetchData = async() =>{
 		const { params } = this.props.navigation.state;
-    const response =  await fetch('http://125.212.241.80/api/luat_detail.php?id='+params.id);
+    const response =  await fetch('http://125.212.241.28/giaothongmap/api/luat_detail.php?id='+params.id);
 		const products = await response.json(); // products have array data
 		this.setState({data: products}); // filled data with dynamic array
 	};
@@ -67,7 +69,7 @@ export default class ChiTietLuat extends Component{
          <Text style={{fontSize:20, marginLeft:10, color:'#eb4124'}}>THÔNG TIN LỖI</Text>
      </View>
           <RkText style={{marginTop:10}}>
-            {item.NoiDung}
+          <HTML html={item.NoiDungChiTiet} imagesMaxWidth={Dimensions.get('window').width} />
           </RkText>
           <RkText style={{marginTop:10}}>
             Nghị Định: <Text>{item.NghiDinh}</Text>

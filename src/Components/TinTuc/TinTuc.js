@@ -15,6 +15,9 @@ import {
   RkCard, RkStyleSheet,
   RkText,
 } from 'react-native-ui-kitten';
+import HTML from 'react-native-render-html';
+import { Font } from 'expo';
+
  import { Ionicons, FontAwesome } from '@expo/vector-icons';
 export default class TinTuc extends React.Component {
 constructor(props){
@@ -23,15 +26,29 @@ constructor(props){
     dataSource:[],
     isLoading:true,
     trang:0,
-    LoadTin:true,
+    LoadTin:false,
    
   }
+}
+LoadTin(){
+  this.setState({
+    LoadTin:true
+  });
+  fetch('http://125.212.241.28/giaothongmap/api/tintucmoi.php')
+  .then((respone)=> respone.json())
+  .then((responeJosn)=>{
+    this.setState({
+      isLoading:false,
+      dataSource:responeJosn,
+    });
+  })
+  .catch(()=>{alert('Du lieu ko ta dc')});
 }
 loadmore(){
   this.setState({
     trang: this.state.trang +1
   },()=>{
-    fetch('http://125.212.241.80/api/ds_tintuc.php?page='+this.state.trang)
+    fetch('http://125.212.241.28/giaothongmap/api/ds_tintuc.php?page='+this.state.trang)
   .then((respone)=> respone.json())
   .then((responeJosn)=>{
     this.setState({
@@ -41,7 +58,7 @@ loadmore(){
   });
 }
 componentDidMount(){
-  fetch('http://125.212.241.80/api/ds_tintuc.php?page=1')
+  fetch('http://125.212.241.28/giaothongmap/api/tintucmoi.php')
   .then((respone)=> respone.json())
   .then((responeJosn)=>{
     this.setState({
@@ -65,6 +82,7 @@ const {navigate} = this.props.navigation;
        style={styles.container}
         data={this.state.dataSource}
         refreshing={this.state.LoadTin}
+        onRefresh={()=>{this.LoadTin()}}
         onEndReachedThreshold="-0.2"
         onEndReached={()=>{this.loadmore()}}
         renderItem={({item}) => 
@@ -73,13 +91,14 @@ const {navigate} = this.props.navigation;
       activeOpacity={0.8}
       onPress={()=>navigate('NoiDung',{id:item.Id})}>
       <RkCard rkType='horizontal' style={styles.card}>
-              <Image rkCardImg source={{uri: 'http://125.212.241.80/api/HinhAnh/'+item.HinhAnh}}/>
+              <Image rkCardImg source={{uri: 'http://125.212.241.28/giaothongmap/HinhAnh/TinTuc/'+item.HinhAnh}}/>
 
         <View rkCardContent>
           <Text style={styles.tieude}>{item.TieuDe}</Text>
-          <Text style={styles.noidung} >
-            {item.NoiDung}
-          </Text>
+          <View style={styles.noidung} >
+          <HTML html={item.NoiDung} imagesMaxWidth={Dimensions.get('window').width} />
+
+          </View>
           <View style={{flexDirection:'row',marginTop:10}}>
           <FontAwesome style={{fontSize:20, marginTop:10, marginRight:2}} name="user" />
           <RkText style={styles.post}>Admin</RkText>
@@ -118,6 +137,7 @@ const styles = RkStyleSheet.create(theme => ({
   },
   noidung:{
     marginLeft: 5,
+    fontFamily:'Cochin',
   }
   
 }));

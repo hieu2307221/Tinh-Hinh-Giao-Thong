@@ -36,11 +36,16 @@ export default class Home extends React.Component {
           <Text style={styles.header}>TÌNH HÌNH GIAO THÔNG</Text>
         </View>
         <View style={styles.viewmenu}>
-
-          <TouchableOpacity onPress={() => navigate("HomeMap")}>
+        <TouchableOpacity onPress={() => navigate("DuongDi")}>
             <View style={[styles.menu, { backgroundColor: "#1bbc9b" }]}>
               <FontAwesome style={styles.icon} name="map" />
               <Text style={styles.textmenu}>BẢN ĐỒ</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate("HomeMap")}>
+            <View style={[styles.menu, { backgroundColor: "#ea4335" }]}>
+              <FontAwesome style={styles.icon} name="exclamation" />
+              <Text style={styles.textmenu}>CẢNH BÁO</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigate("CanhBao")}>
